@@ -1,0 +1,96 @@
+<div class="card text-white bg-dark my-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+
+        <form #forma="ngForm" novalidate="">
+
+            <div class="form-group row">
+
+                <label class="col-lg-2 col-sm-5 col-form-label">Nombre</label>
+                <div class="col-6 ">
+
+                    <input [ngClass]="{'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched, 'is-valid': !nombre.errors?.required && !nombre.errors?.minlength}" required=true minlength="4" maxlength="12" [(ngModel)]="cliente.nombre" name="nombre"
+                        class="form-control" type="text" placeholder="Nombre" #nombre="ngModel">
+
+                    <div *ngIf="nombre.errors?.required" class="invalid-feedback mt-1" role="alert">
+                        Este campo es requerido
+                    </div>
+
+                    <div *ngIf="nombre.errors?.minlength||nombre.errors?.maxlength" class=" invalid-feedback mt-1" role="alert">
+                        Por lo menos {{nombre.errors.minlength.requiredLength}} caracteres ni mas de 12 caracteres
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-2 col-sm-5 col-form-label">Apellido</label>
+                <div class="col-6">
+
+                    <input [ngClass]="{'is-invalid': apellido.errors?.required && apellido.touched,'is-valid': !apellido.errors?.required}" required=true [(ngModel)]="cliente.apellido" #apellido="ngModel" name="apellido" class="form-control" type="text" placeholder="Apellido">
+
+                    <div *ngIf="apellido.errors?.required" class="invalid-feedback mt-1" role="alert">
+                        Este campo es requerido
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-2 col-sm-5 col-form-label">Email</label>
+                <div class="col-6">
+
+                    <input [ngClass]="{'is-invalid': (email.errors?.required) && email.touched,'is-valid':!email.errors?.required }" required=true [(ngModel)]="cliente.email" #email="ngModel" name="email" class="form-control" type="email" placeholder="Email">
+
+                    <div *ngIf="email.errors?.required" class="invalid-feedback mt-1" role="alert">
+                        <strong>El campo es requerido</strong>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-2 col-sm-5 col-form-label">Fecha registro</label>
+                <div class="col-6">
+
+
+                    <input style="width: 80%;" [matDatepicker]="miDatepicker" [(ngModel)]="cliente.createAt" name="createAt" class="form-control d-inline">
+                    <mat-datepicker-toggle [for]="miDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #miDatepicker></mat-datepicker>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Region" class="col-lg-2 col-sm-5 col-form-label">Region</label>
+                <div class="col-6">
+                    <!--  con la directiva [compareWith] comparamos el objeto que cargamos en el [(ngModel)]="cliente.region"
+                   con cada una de las opciones si al comparar retorna true la dejara seleccionada  se debe crear el metodo
+                    'compararRegion' que recibira 2 parametros 1. la que se cargo en el select;  2. la opcion que esta iterando el ngfor -->
+                    <select [compareWith]="compararRegion" style="width: 80%;" [(ngModel)]="cliente.region" name="region" class="form-control d-inline">
+                        <option  [ngValue]="undefined" >--- Selecionar una region ---</option>
+                      <option *ngFor="let region of regiones" [ngValue]="region">{{region.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-2 col-sm-5 col-form-label">&nbsp;</label>
+                <div class="input-group col-md-6">
+                    <ng-container *ngIf="!cliente.id; else elseTemplate">
+                        <button [disabled]="!forma.valid" type="button" (click)="create(forma)" class="btn btn-primary btn-block" role="button">
+                            Crear
+                          </button>
+                    </ng-container>
+
+                    <ng-template #elseTemplate>
+                        <button [disabled]="!forma.valid" type="button" (click)="update(forma)" class="btn btn-primary btn-block" role="button">
+                            Editar
+                          </button>
+                    </ng-template>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<nav aria-label="Page navigation example">
+    <ul *ngIf="paginas?.length>0" class="pagination justify-content-center">
+        <li class="page-item ">
+            <a [routerLink]="['/clientes/page',0]" [ngClass]="{'disabled':paginador.first}" class="page-link btn">Primera</a>
+        </li>
+
+        <li class="page-item " [ngClass]="{'disabled':paginador.first}">
+            <a [routerLink]="['/clientes/page',paginador.number - 1]" class="page-link btn" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li *ngFor="let pagina of paginas" class="page-item ">
+            <a [routerLink]="['/clientes/page',pagina - 1]" [ngClass]="{'disabled':(pagina-1)==paginador.number}" class="page-link btn">{{pagina}}</a>
+        </li>
+
+        <li class="page-item ">
+            <a [routerLink]="['/clientes/page',paginador.number + 1]" [ngClass]="{'disabled':paginador.last}" class="page-link btn">Next</a>
+        </li>
+
+        <li class="page-item ">
+            <a [routerLink]="['/clientes/page',paginador.totalPages - 1]" [ngClass]="{'disabled':paginador.last}" class="page-link btn">Ultima</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- <ul *ngIf="paginas?.length>0">
+    <li *ngFor="let pagina of paginas">{{pagina}}</li>
+</ul> -->
