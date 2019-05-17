@@ -49,10 +49,10 @@ export class FormComponent implements OnInit {
   }
 
   create(forma:NgForm):void{
-    console.log("formulario Posteado");
-    console.log("ngForm: ",forma);
-    console.log("Valor: ",forma.value);
-    console.log(this.cliente);
+    // console.log("formulario Posteado");
+    // console.log("ngForm: ",forma);
+    // console.log("Valor: ",forma.value);
+    // console.log(this.cliente);
 
     this.clienteService.create(this.cliente).
     subscribe((cliente:{})=> {

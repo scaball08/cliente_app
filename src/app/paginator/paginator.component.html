@@ -1,5 +1,5 @@
-<nav aria-label="Page navigation example">
-    <ul *ngIf="paginas?.length>0" class="pagination justify-content-center">
+<nav aria-label="Page navigation example row">
+    <ul *ngIf="paginas?.length>0" class="pagination justify-content-center col">
         <li class="page-item ">
             <a [routerLink]="['/clientes/page',0]" [ngClass]="{'disabled':paginador.first}" class="page-link btn">Primera</a>
         </li>

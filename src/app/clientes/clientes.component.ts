@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { ModalService } from './detalle/modal.service';
+import { AuthService } from '../usuarios/auth.service';
 
 @Component({
   selector: 'app-clientes',
@@ -16,7 +17,7 @@ export class ClientesComponent implements OnInit {
   public paginador:any;
   clienteSeleccionado:Cliente;
 
-  constructor(private clienteService: ClienteService, private activatedRoute:ActivatedRoute,private modalService:ModalService ) { }
+  constructor(private clienteService: ClienteService, public authService:AuthService, private activatedRoute:ActivatedRoute,private modalService:ModalService ) { }
 
   ngOnInit() {
 
@@ -32,13 +33,7 @@ export class ClientesComponent implements OnInit {
       console.log(page);
 
     this.clienteService.getClientes(page).pipe(
-      tap((response:any)=>{
 
-        console.log("ClienteService: tap 3");
-        (response.content as Cliente[]).forEach(cliente=>{
-          console.log(cliente.nombre);
-        });
-      })
      )
     .subscribe(
        (response:any) => {
